@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPSLS
 {
-    class Spock : Objects
+    public class Spock : Gestures
     {
+        //member variables
+
+        //constructor
+
+        //methods
     }
 }

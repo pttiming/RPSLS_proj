@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPSLS
 {
-    class Paper
+    public class Paper : Gestures
     {
+        //member variables
+
+        //constructor
+
+        //methods
     }
 }
