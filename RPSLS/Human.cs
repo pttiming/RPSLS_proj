@@ -18,6 +18,22 @@ namespace RPSLS
         }
 
         //methods
-        
+
+        public override int ChooseGesture()
+        {
+            int gestureLength = gestures.Count;
+            int gestureId;
+
+            Console.WriteLine("Please Select your Gesture.");
+            for(int i = 0; i < gestureLength; i++)
+            {
+                Console.WriteLine($"{i}. {gestures[i].gestureName}");
+            }
+            string userInput;
+            userInput = Console.ReadLine();
+            gestureId = int.Parse(userInput); 
+            return gestureId;
+        }
+
     }
 }
