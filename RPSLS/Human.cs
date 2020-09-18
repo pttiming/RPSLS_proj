@@ -11,7 +11,13 @@ namespace RPSLS
         //member variables
 
         //constructor
+        public Human(string playerName)
+        {
+            this.playerName = playerName;
+            playerScore = 0;
+        }
 
         //methods
+        
     }
 }

@@ -11,7 +11,22 @@ namespace RPSLS
         //member variables
 
         //constructor
+        public Paper()
+        {
+            gestureName = "Paper";
+        }
 
         //methods
+        public override bool GestureWins(Gestures gesture)
+        {
+            if (gesture.gestureName == "Rock" || gesture.gestureName == "Spock")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

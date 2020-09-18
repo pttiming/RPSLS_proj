@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RPSLS
 {
-    public class Gestures
+    public abstract class Gestures
     {
         //member variables
-        string gestureName;
-
+        public string gestureName;
 
         //constructor
 
         //methods
+        public abstract bool GestureWins(Gestures gesture);
     }
 }

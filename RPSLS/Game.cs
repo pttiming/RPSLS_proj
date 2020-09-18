@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,7 +35,11 @@ namespace RPSLS
 
         public void DisplayRules()
         {
-            Console.WriteLine("");
+            Console.Clear();
+            Console.WriteLine("RPSLS is a Head to Head Game played either between two players");
+            Console.WriteLine("A game can be played as a single player vs. the computer or two player head to head");
+            Console.WriteLine("Each game consists of multiple rounds in a 'best of' format");
+            Console.WriteLine("Prior to each game, the total number of rounds will be determined");
         }
 
         public void BaseMenu()
@@ -65,6 +70,56 @@ namespace RPSLS
                     break;
             }
 
+
         }
+
+        public void DetermineRounds()
+        {
+            Console.Clear();
+            Console.WriteLine("How many rounds would you like to play?");
+            Console.WriteLine("Minimum 3 Rounds.  Must be an odd number!");
+            string userInput;
+            userInput = Console.ReadLine();
+            if (IsInteger(userInput) == true && ValidateRounds(int.Parse(userInput)) == true)
+            {
+                totalRounds = int.Parse(userInput);
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Response.");
+                Console.WriteLine("Please enter an odd number 3 or higher.");
+                DetermineRounds();
+            }
+
+
+        }
+
+        public bool ValidateRounds(int rounds)
+        {
+            if (rounds >= 3 && rounds % 2 != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsInteger(string input)
+        {
+            int response;
+            if(int.TryParse(input, out response))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
 }

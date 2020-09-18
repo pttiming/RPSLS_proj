@@ -9,7 +9,9 @@ namespace RPSLS
     public class Players
     {
         //member variables
-        string playerName;
+        public string playerName;
+        public int playerScore;
+        public List<Gestures> gestures;
 
         //constructor
         public Players()
