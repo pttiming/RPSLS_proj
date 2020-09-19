@@ -252,11 +252,26 @@ namespace RPSLS
         }
         public void DisplayCountdown()
         {
-
+            Console.WriteLine("Ready!");
+            System.Threading.Thread.Sleep(400);
+            Console.WriteLine("Set!");
+            System.Threading.Thread.Sleep(400);
+            Console.WriteLine("Rock");
+            System.Threading.Thread.Sleep(150);
+            Console.WriteLine("Paper");
+            System.Threading.Thread.Sleep(150);
+            Console.WriteLine("Lizard");
+            System.Threading.Thread.Sleep(150);
+            Console.WriteLine("Scissors");
+            System.Threading.Thread.Sleep(150);
+            Console.WriteLine("Spock");
+            System.Threading.Thread.Sleep(150);
+            Console.WriteLine();
         }
         public void DisplayPlayerDecisions()
         {
             Console.WriteLine($"{playerOne.playerName} shows {playerOne.gestures[playerOne.chosenGestureIndex].gestureName} while {playerTwo.playerName} shows {playerTwo.gestures[playerTwo.chosenGestureIndex].gestureName}");
+            Console.WriteLine();
         }
     }
 }
