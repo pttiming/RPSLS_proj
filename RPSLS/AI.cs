@@ -13,5 +13,13 @@ namespace RPSLS
         //constructor
 
         //methods
+        public override void ChooseGesture()
+        {
+            Random rand;
+            rand = new Random();
+            int listLength = gestures.Count;
+            chosenGestureIndex = rand.Next(0,listLength -1);
+            
+        }
     }
 }

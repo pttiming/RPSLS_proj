@@ -11,12 +11,15 @@ namespace RPSLS
     {
         //member variables
         int totalRounds;
-        int winsNeeded;
+        double winsNeeded;
+        int roundCount;
+        Players playerOne;
+        Players playerTwo;
 
         //constructor
         public Game()
         {
-
+            playerOne = new Human();
         }
 
         //methods
@@ -36,10 +39,29 @@ namespace RPSLS
         public void DisplayRules()
         {
             Console.Clear();
-            Console.WriteLine("RPSLS is a Head to Head Game played either between two players");
+            Console.WriteLine("RPSLS is a Head to Head Game very similar to Rock,Paper,Scissors");
             Console.WriteLine("A game can be played as a single player vs. the computer or two player head to head");
             Console.WriteLine("Each game consists of multiple rounds in a 'best of' format");
             Console.WriteLine("Prior to each game, the total number of rounds will be determined");
+            Console.WriteLine("If a round ends in a 'Draw' that round is replayed");
+            Console.WriteLine("Each Player will select a gesture, which will then be compared.");
+            Console.WriteLine("");
+            Console.WriteLine("The winner of the round will be determined by the following rules:");
+            Console.WriteLine("Rock Crushes Scissors");
+            Console.WriteLine("Scissors Cuts Paper");
+            Console.WriteLine("Paper Covers Rock");
+            Console.WriteLine("Rock Crushes Lizard");
+            Console.WriteLine("Lizard poisons Spock");
+            Console.WriteLine("Spock smashes Scissors");
+            Console.WriteLine("Scissors decapitates Lizard");
+            Console.WriteLine("Lizard eats Paper");
+            Console.WriteLine("Paper disproves Spock");
+            Console.WriteLine("Spock vaporizes Rock");
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+            Console.Clear();
+            BaseMenu();
         }
 
         public void BaseMenu()
@@ -54,6 +76,7 @@ namespace RPSLS
             switch (userInput)
             {
                 case "1":
+                    DisplayRules();
                     break;
                 case "2":
                     break;
@@ -80,7 +103,7 @@ namespace RPSLS
             Console.WriteLine("Minimum 3 Rounds.  Must be an odd number!");
             string userInput;
             userInput = Console.ReadLine();
-            if (IsInteger(userInput) == true && ValidateRounds(int.Parse(userInput)) == true)
+            if (Validations.IsInteger(userInput) == true && ValidateRounds(int.Parse(userInput)) == true)
             {
                 totalRounds = int.Parse(userInput);
             }
@@ -107,18 +130,11 @@ namespace RPSLS
             }
         }
 
-        public bool IsInteger(string input)
-        {
-            int response;
-            if(int.TryParse(input, out response))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
 
+        public void WinsNeeded(double rounds)
+        {
+            double result = (rounds / 2);
+            winsNeeded = Math.Ceiling(result);
         }
 
     }

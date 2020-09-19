@@ -11,18 +11,16 @@ namespace RPSLS
         //member variables
 
         //constructor
-        public Human(string playerName)
+        public Human()
         {
-            this.playerName = playerName;
-            playerScore = 0;
+
         }
 
         //methods
 
-        public override int ChooseGesture()
+        public override void ChooseGesture()
         {
             int gestureLength = gestures.Count;
-            int gestureId;
 
             Console.WriteLine("Please Select your Gesture.");
             for(int i = 0; i < gestureLength; i++)
@@ -31,8 +29,19 @@ namespace RPSLS
             }
             string userInput;
             userInput = Console.ReadLine();
-            gestureId = int.Parse(userInput); 
-            return gestureId;
+            
+            if (Validations.IsInteger(userInput) == true && int.Parse(userInput) >= 0 && int.Parse(userInput) <= gestureLength)
+            {
+               chosenGestureIndex = int.Parse(userInput);
+                
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine();
+                ChooseGesture();
+            }
+            
         }
 
     }
