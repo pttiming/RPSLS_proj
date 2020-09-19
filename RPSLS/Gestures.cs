@@ -15,5 +15,6 @@ namespace RPSLS
 
         //methods
         public abstract bool GestureWins(Gestures gesture);
+        public abstract void GestureExplanation(Gestures gesture);
     }
 }

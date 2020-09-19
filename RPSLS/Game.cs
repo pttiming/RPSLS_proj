@@ -45,12 +45,12 @@ namespace RPSLS
             DisplayWinner();
             PlayAgain();
         }
-
+        //Welcomes user to the game
         public void DisplayWelcome()
         {
             Console.WriteLine("Welcome to Rock, Paper, Scissors, Lizard, Spock!");
         }
-
+        //Game Overview
         public void DisplayRules()
         {
             Console.Clear();
@@ -78,7 +78,7 @@ namespace RPSLS
             Console.Clear();
             BaseMenu();
         }
-
+        //Initial Menu to determine how many players, view rules, or exit
         public void BaseMenu()
         {
             Console.WriteLine("What would you like to do?");
@@ -112,7 +112,7 @@ namespace RPSLS
 
 
         }
-
+        //Determines how many rounds will be played based on user input
         public void DetermineRounds()
         {
             Console.WriteLine("How many rounds would you like to play?");
@@ -133,7 +133,7 @@ namespace RPSLS
 
 
         }
-
+        //Ensures that the number or rounds submitted is at least 3 and also an odd number
         public bool ValidateRounds(int rounds)
         {
             if (rounds >= 3 && rounds % 2 != 0)
@@ -146,13 +146,13 @@ namespace RPSLS
             }
         }
 
-
+        //Determines how many wins are needed based on rounds being played
         public void WinsNeeded(double rounds)
         {
             double result = (rounds / 2);
             winsNeeded = Math.Ceiling(result);
         }
-
+        //Declares a winner once the required win total has been met
         public void DisplayWinner()
         {
             if (playerOne.playerScore >= winsNeeded)
@@ -164,7 +164,7 @@ namespace RPSLS
                 Console.WriteLine($"{playerTwo.playerName} Wins!");
             }
         }
-
+        //Allows the user to restart the game once the previous games has been completed
         public void PlayAgain()
         {
             Console.WriteLine();
@@ -191,7 +191,7 @@ namespace RPSLS
             }
 
         }
-
+        //Collects names for the human users
         public void GetPlayerNames()
         {
             Console.WriteLine("Player 1: Please Enter your name:");
@@ -211,7 +211,7 @@ namespace RPSLS
                 Console.WriteLine($"Today you will be playing {playerTwo.playerName}");
             }
         }
-
+        //Game play function to compare gestures and determine a round winner
         public void PlayRound()
         {
             Console.WriteLine($"Round {roundCount}:");
@@ -222,23 +222,29 @@ namespace RPSLS
             CompareGestures(playerOne.chosenGestureIndex, playerTwo.chosenGestureIndex);
             
         }
+       
         public void IncreaseScore(Players player)
         {
             player.playerScore = +1;
         }
+       //Compares the submitted gestures to determine who wins the round
         public void CompareGestures(int playerOneIndex, int playerTwoIndex)
         {
             if (playerOne.gestures[playerOneIndex].GestureWins(playerTwo.gestures[playerTwoIndex]) == true && playerTwo.gestures[playerTwoIndex].GestureWins(playerOne.gestures[playerOneIndex]) == false)
             {
+                playerOne.gestures[playerOneIndex].GestureExplanation(playerTwo.gestures[playerTwoIndex]);
+                Console.WriteLine();
                 Console.WriteLine($"{playerOne.playerName} Wins the Round!");
                 roundCount += 1;
-                playerOne.playerScore += 1;
+                IncreaseScore(playerOne);
             }
             else if (playerOne.gestures[playerOneIndex].GestureWins(playerTwo.gestures[playerTwoIndex]) == false && playerTwo.gestures[playerTwoIndex].GestureWins(playerOne.gestures[playerOneIndex]) == true)
             {
+                playerTwo.gestures[playerTwoIndex].GestureExplanation(playerOne.gestures[playerOneIndex]);
+                Console.WriteLine();
                 Console.WriteLine($"{playerTwo.playerName} Wins the Round!");
                 roundCount += 1;
-                playerTwo.playerScore += 1;
+                IncreaseScore(playerTwo);
             }
             else
             {
@@ -247,6 +253,7 @@ namespace RPSLS
         }
         public void DisplayScore()
         {
+            Console.WriteLine();
             Console.WriteLine("Current Score:");
             Console.WriteLine($"{playerOne.playerName}: {playerOne.playerScore} | {playerTwo.playerName}: {playerTwo.playerScore}");
         }
@@ -257,15 +264,15 @@ namespace RPSLS
             Console.WriteLine("Set!");
             System.Threading.Thread.Sleep(400);
             Console.WriteLine("Rock");
-            System.Threading.Thread.Sleep(150);
+            System.Threading.Thread.Sleep(250);
             Console.WriteLine("Paper");
-            System.Threading.Thread.Sleep(150);
+            System.Threading.Thread.Sleep(250);
             Console.WriteLine("Lizard");
-            System.Threading.Thread.Sleep(150);
+            System.Threading.Thread.Sleep(250);
             Console.WriteLine("Scissors");
-            System.Threading.Thread.Sleep(150);
+            System.Threading.Thread.Sleep(250);
             Console.WriteLine("Spock");
-            System.Threading.Thread.Sleep(150);
+            System.Threading.Thread.Sleep(250);
             Console.WriteLine();
         }
         public void DisplayPlayerDecisions()

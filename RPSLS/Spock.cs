@@ -28,5 +28,16 @@ namespace RPSLS
                 return false;
             }
         }
+        public override void GestureExplanation(Gestures gesture)
+        {
+            if (gesture.gestureName == "Scissors")
+            {
+                Console.WriteLine("Spock Smashes Scissors");
+            }
+            else if(gesture.gestureName == "Rock")
+            {
+                Console.WriteLine("Spock Vaporizes Rock");
+            }
+        }
     }
 }
