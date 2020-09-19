@@ -13,7 +13,7 @@ namespace RPSLS
         //constructor
         public Human()
         {
-
+            type = "Human";
         }
 
         //methods
@@ -38,7 +38,7 @@ namespace RPSLS
             else
             {
                 Console.Clear();
-                Console.WriteLine();
+                Console.WriteLine("Invalid Response, Try Again!");
                 ChooseGesture();
             }
             

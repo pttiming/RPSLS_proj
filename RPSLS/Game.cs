@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -12,7 +13,7 @@ namespace RPSLS
         //member variables
         int totalRounds;
         double winsNeeded;
-        int roundCount;
+        int roundCount = 1;
         Players playerOne;
         Players playerTwo;
 
@@ -29,11 +30,25 @@ namespace RPSLS
             DisplayWelcome();
             BaseMenu();
 
+            //Basic Setup
+            GetPlayerNames();
+            DetermineRounds();
+            WinsNeeded(totalRounds);
+
+            //GamePlay
+            while (playerOne.playerScore < winsNeeded && playerTwo.playerScore < winsNeeded)
+            {
+                PlayRound();
+                DisplayScore();
+            }
+            //End Game
+            DisplayWinner();
+            PlayAgain();
         }
 
         public void DisplayWelcome()
         {
-            Console.WriteLine("Welcome to Rock, Paper, Siccors, Lizard, Spock!");
+            Console.WriteLine("Welcome to Rock, Paper, Scissors, Lizard, Spock!");
         }
 
         public void DisplayRules()
@@ -79,8 +94,10 @@ namespace RPSLS
                     DisplayRules();
                     break;
                 case "2":
+                    playerTwo = new AI();
                     break;
                 case "3":
+                    playerTwo = new Human();
                     break;
                 case "4":
                     Environment.Exit(0);
@@ -98,7 +115,6 @@ namespace RPSLS
 
         public void DetermineRounds()
         {
-            Console.Clear();
             Console.WriteLine("How many rounds would you like to play?");
             Console.WriteLine("Minimum 3 Rounds.  Must be an odd number!");
             string userInput;
@@ -111,7 +127,7 @@ namespace RPSLS
             {
                 Console.Clear();
                 Console.WriteLine("Invalid Response.");
-                Console.WriteLine("Please enter an odd number 3 or higher.");
+                Console.WriteLine("Please enter an odd number with a value of 3 or higher.");
                 DetermineRounds();
             }
 
@@ -137,5 +153,110 @@ namespace RPSLS
             winsNeeded = Math.Ceiling(result);
         }
 
+        public void DisplayWinner()
+        {
+            if (playerOne.playerScore >= winsNeeded)
+            {
+                Console.WriteLine($"{playerOne.playerName} Wins!");
+            }
+            else
+            {
+                Console.WriteLine($"{playerTwo.playerName} Wins!");
+            }
+        }
+
+        public void PlayAgain()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Would you like to play again?  Y or N");
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "y":
+                case "Y":
+                    Game game = new Game();
+                    game.RunGame();
+                    break;
+                case "n":
+                case "N":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid Response, try again");
+                    PlayAgain();
+                    break;
+
+            }
+
+        }
+
+        public void GetPlayerNames()
+        {
+            Console.WriteLine("Player 1: Please Enter your name:");
+            string userInput1 = Console.ReadLine();
+            playerOne.playerName = userInput1;
+            Console.WriteLine($"Welcome {playerOne.playerName}!");
+
+            if(playerTwo.type == "Human")
+            {
+                Console.WriteLine("Player 2: Please Enter your name:");
+                string userInput2 = Console.ReadLine();
+                playerTwo.playerName = userInput2; 
+                Console.WriteLine($"Welcome {userInput2}!");
+            }
+            else
+            {
+                Console.WriteLine($"Today you will be playing {playerTwo.playerName}");
+            }
+        }
+
+        public void PlayRound()
+        {
+            Console.WriteLine($"Round {roundCount}:");
+            playerOne.ChooseGesture();
+            playerTwo.ChooseGesture();
+            DisplayCountdown();
+            DisplayPlayerDecisions();
+            CompareGestures(playerOne.chosenGestureIndex, playerTwo.chosenGestureIndex);
+            
+        }
+        public void IncreaseScore(Players player)
+        {
+            player.playerScore = +1;
+        }
+        public void CompareGestures(int playerOneIndex, int playerTwoIndex)
+        {
+            if (playerOne.gestures[playerOneIndex].GestureWins(playerTwo.gestures[playerTwoIndex]) == true && playerTwo.gestures[playerTwoIndex].GestureWins(playerOne.gestures[playerOneIndex]) == false)
+            {
+                Console.WriteLine($"{playerOne.playerName} Wins the Round!");
+                roundCount += 1;
+                playerOne.playerScore += 1;
+            }
+            else if (playerOne.gestures[playerOneIndex].GestureWins(playerTwo.gestures[playerTwoIndex]) == false && playerTwo.gestures[playerTwoIndex].GestureWins(playerOne.gestures[playerOneIndex]) == true)
+            {
+                Console.WriteLine($"{playerTwo.playerName} Wins the Round!");
+                roundCount += 1;
+                playerTwo.playerScore += 1;
+            }
+            else
+            {
+                Console.WriteLine("DRAW!  Replay Round");
+            }
+        }
+        public void DisplayScore()
+        {
+            Console.WriteLine("Current Score:");
+            Console.WriteLine($"{playerOne.playerName}: {playerOne.playerScore} | {playerTwo.playerName}: {playerTwo.playerScore}");
+        }
+        public void DisplayCountdown()
+        {
+
+        }
+        public void DisplayPlayerDecisions()
+        {
+            Console.WriteLine($"{playerOne.playerName} shows {playerOne.gestures[playerOne.chosenGestureIndex].gestureName} while {playerTwo.playerName} shows {playerTwo.gestures[playerTwo.chosenGestureIndex].gestureName}");
+        }
     }
 }

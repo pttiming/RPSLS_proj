@@ -11,7 +11,11 @@ namespace RPSLS
         //member variables
 
         //constructor
-
+        public AI()
+        {
+            playerName = "Robo Sheldon";
+            type = "AI";
+        }
         //methods
         public override void ChooseGesture()
         {

@@ -11,6 +11,7 @@ namespace RPSLS
         //member variables
         public string playerName;
         public int playerScore;
+        public string type;
         public List<Gestures> gestures;
         public int chosenGestureIndex;
 
