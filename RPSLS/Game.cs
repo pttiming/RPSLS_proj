@@ -225,7 +225,7 @@ namespace RPSLS
        
         public void IncreaseScore(Players player)
         {
-            player.playerScore = +1;
+            player.playerScore = + 1;
         }
        //Compares the submitted gestures to determine who wins the round
         public void CompareGestures(int playerOneIndex, int playerTwoIndex)
